@@ -111,20 +111,27 @@ cron-job.org 등)로 15분 간격 헬스체크를 걸어 슬립을 방지하는 
   `KIPRIS_KEY`/`DATA_GO_KR_KEY`/`DART_KEY`/`CORS_ORIGINS`는 `sync: false`로 선언만 해둠 —
   실제 값은 Render 대시보드에서 직접 입력해야 함(레포에 커밋 안 됨).
 
-### 다음 세션 시작점 — 실제 배포 작업 (사용자 계정 필요, 직접 진행)
+### 배포 완료 (2026-08-25)
 
-- [ ] git 첫 커밋 (아직 커밋 이력 없음 — `git add` 전 `git status`로 무엇이 올라가는지 확인,
-      특히 `.env`가 안 들어가는지 재확인할 것)
-- [ ] GitHub 원격 저장소 생성 + push
-- [ ] Render: New → Blueprint → 위 저장소 연결 → `render.yaml` 자동 인식 확인 →
-      `KIPRIS_KEY`/`DATA_GO_KR_KEY`/`DART_KEY` 대시보드에서 입력 → 배포 → 발급된 URL 확인
-- [ ] Vercel: New Project → 저장소 연결 → Root Directory를 `frontend`로 지정 →
-      환경변수 `VITE_API_BASE_URL` = 위 Render URL로 설정 → 배포
-- [ ] Render `CORS_ORIGINS` 환경변수에 확정된 Vercel 도메인 입력 후 재배포(현재 `*`로 열려있어
-      기능은 되지만, 도메인 확정되면 좁히는 게 원칙적으로 맞음)
-- [ ] 배포된 URL로 디플리/삼성전자/존재하지 않는 기업 3케이스 재확인 (캐시 히트라 API 호출 없이 응답되어야 함)
+- [x] git 첫 커밋 (`27b3304`) — `.env`, `data/corp_code.xml` 제외 확인 완료
+- [x] GitHub push — `github.com/joyceobro/kstartup` (origin은 기존에 SSH 별칭으로 이미 설정되어 있었음)
+- [x] Render Blueprint 배포 — 서비스명 `kstartup-api`, URL `https://kstartup-api.onrender.com`
+      (`KIPRIS_KEY`/`DATA_GO_KR_KEY`/`DART_KEY` 대시보드에 입력 완료, `/health` 200 확인)
+- [x] Vercel 배포 — Root Directory `frontend`, Framework Preset을 Vite로 수동 지정
+      (⚠️ 처음엔 저장소 루트의 `main.py`를 보고 Vercel이 FastAPI로 잘못 자동감지함 → Root Directory
+      설정 후에도 Framework Preset은 수동으로 Vite로 바꿔줘야 했음).
+      환경변수 `VITE_API_BASE_URL=https://kstartup-api.onrender.com` 설정.
+      **최종 URL은 `https://kstartupcopy.vercel.app`** — 프로젝트 이름을 `kstartup`으로 바꿨지만
+      `kstartup.vercel.app` 서브도메인은 이미 타 사용자가 선점 중이라(.vercel.app은 전역 유일)
+      기존 자동생성 도메인(`kstartupcopy`)을 그대로 씀. 프로젝트 이름과 도메인이 다른 상태.
+- [x] Render `CORS_ORIGINS=https://kstartupcopy.vercel.app` 설정 후 재배포, 정상 동작 확인
+- [x] 배포된 URL로 디플리(Vercel→Render CORS 좁힌 뒤)·삼성전자(Vercel 초기 배포 직후) 확인 완료
+
+### 다음 세션 시작점
+
 - [ ] (선택) UptimeRobot 등으로 Render 슬립 방지 핑 설정
-- [ ] 기획서·기능명세서 PDF 마무리
+- [ ] 기획서·기능명세서 PDF 마무리 (제출용 URL: 프론트 `https://kstartupcopy.vercel.app`,
+      백엔드 `https://kstartup-api.onrender.com`)
 - [ ] (여유 있으면) KIPRIS `CommonSearchApplicantInfo` 승인받아 동명이인 보정 강화
 - [ ] (여유 있으면) 공신력 축 — 이노비즈/메인비즈 소스 추가 조사
 - [ ] (여유 있으면) 반응형(모바일) 점검, 로딩 스피너 개선
