@@ -1,0 +1,393 @@
+{
+  "profile": {
+    "input_name": "주식회사 디플리",
+    "normalized_name": "디플리",
+    "venture": {
+      "대표자명(익명)": "이**",
+      "벤처유효시작일": "2023-06-07",
+      "벤처유효종료일": "2026-06-06",
+      "벤처확인기관": "벤처기업확인기관",
+      "벤처확인유형": "혁신성장유형",
+      "신규_재확인": "재확인",
+      "업종명(11차)": "그 외 기타 정보 서비스업",
+      "업종분류(기보)": "정보처리S/W",
+      "업체명": "주식회사 디플리",
+      "연번": 2,
+      "주생산품": "소프트웨어",
+      "주소": "서울특별시 마포구",
+      "지역": "서울"
+    },
+    "dart": null,
+    "patent": {
+      "applicant_key": "주식회사 디플리",
+      "matched_by_person_number": false,
+      "totalCount": 10,
+      "items": [
+        {
+          "applicantName": "주식회사 디플리",
+          "applicationDate": "20231130",
+          "applicationNumber": "1020230170465",
+          "astrtCont": "서버의 프로세서에 의해 실행되는 AI 사운드 분류 모델의 성능 향상을 위한 데이터 가공 방법에 있어서, 기준 디바이스로 사운드 데이터를 수집하여 제1 원본 데이터를 생성하는 단계; 상기 기준 디바이스를 제외한 일반 디바이스로 상기 사운드 데이터를 수집하여 제2 원본 데이터를 생성하는 단계; 및 상기 제1 원본 데이터 및 상기 제2 원본 데이터를 스펙트로그램 데이터로 변환하는 단계;를 포함한다. 본 발명의 실시예에 따르면, 서버는 Cycle GAN의 생성자를 훈련시키고, 학습된 생성자를 이용하여 기준 디바이스로 수집한 사운드 데이터를 일반 디바이스에 대응하는 가공 데이터로 변환할 수 있다. 따라서, 서버가 인공지능 모델을 학습시킬 때, 기준 디바이스로만 사운드 데이터를 수집하더라도 다양한 기종에 대한 사운드 데이터를 데이터 셋으로 활용할 수 있다. 이에 따라, 데이터 셋으로 학습한 인공지능 모델은 소리에 관하여 디바이스의 기종에 관계없이 일관된 성능 및 결과를 도출할 수 있다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=6c650beb4cee9ce4122b704b88878c93357df36c037ec8d4dc312644adc4a4965bcbf5cd8de27318666ec3d41db8ece5a61170127ba3e5f38863a3b2903c28c108fdac1bf2d7109b",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cfda11d02ae0cb211b0303b869a79073e749c8a49d8625e78fbb7345e82b7168e4c2d91996f7e6e7650ec785cbd52eca228da96de702ca4c19",
+          "indexNo": "1",
+          "inventionTitle": "녹음 장치 변경에 독립적인 AI 사운드 분류 모델의 성능 향상 방법 및 이를 위한 데이터 가공 방법",
+          "ipcNumber": "G10L 25/51|G10L 25/18|G10L 25/30|G06N 3/08",
+          "openDate": "20250609",
+          "openNumber": "1020250082301",
+          "publicationDate": "",
+          "publicationNumber": "",
+          "registerDate": "",
+          "registerNumber": "",
+          "registerStatus": "공개"
+        },
+        {
+          "applicantName": "주식회사 디플리",
+          "applicationDate": "20231114",
+          "applicationNumber": "1020230156941",
+          "astrtCont": "장치의 프로세서에 의해 실행되는 인공지능 소리 분석에 특화된 엣지 단계 모델 업데이트 및 배포 자동화 방법은 복수의 센서로부터 센서가 수집하고 선별한 선별 데이터 및 선별 데이터에 대한 추론 데이터를 전송받는 단계; 선별 데이터 및 추론 데이터를 데이터셋으로 이용하여 기 설정된 주기에 따라 모델을 업데이트하는 단계; 업데이트된 모델을 상기 센서에 배포하는 단계; 및 상기 추론 데이터를 클라우드에 전송하는 단계;를 포함한다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=6c650beb4cee9ce4122b704b88878c93191078e9070af38d272b6f7fc6c1c0999b8edb33fae7f61ae44ef1e60c52d943b44d5989ebb5c8faa47dc24d0af16741fbdceb7bf08e835d",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cf85c8c7fe549487099838d35d6d4bc183869acb74f229c555800d1dbf2d40e0a05c15ceef2b7b29fe4fb55b1bfcfc23e16433939f13668b9f",
+          "indexNo": "2",
+          "inventionTitle": "인공지능 소리 분석에 특화된 엣지 단계 모델 업데이트 및 배포 자동화 방법 및 시스템",
+          "ipcNumber": "G06F 8/65|G06N 5/04|H04L 67/12|H04L 67/50|G06N 20/00|G10L 25/30|G16Y 40/20",
+          "openDate": "20250521",
+          "openNumber": "1020250070752",
+          "publicationDate": "",
+          "publicationNumber": "",
+          "registerDate": "",
+          "registerNumber": "",
+          "registerStatus": "공개"
+        },
+        {
+          "applicantName": "주식회사 디플리",
+          "applicationDate": "20231114",
+          "applicationNumber": "1020230156943",
+          "astrtCont": "서버의 프로세서에 의해 실행되는 멀티 디바이스 환경에서의 일관된 성능을 위한 인공지능 사운드 모델 학습 방법은, 복수의 디바이스 각각이 수집한 동일한 소리에 대한 원본 데이터를 전송받는 단계; Cycle GAN(Generative Adversarial Network)에 기반하여 복수의 디바이스에 포함된 기준 디바이스로 수집한 제1 원본 데이터와 기준 디바이스를 제외한 일반 디바이스로 수집한 제2 원본 데이터를 이용하여 Cycle GAN의 생성자를 학습하는 단계; Cycle GAN의 생성자를 이용하여 기준 디바이스로 수집한 사운드 데이터를 일반 디바이스에 대응하는 가공 데이터로 변환하는 단계; 및 기준 디바이스로 수집한 사운드 데이터 및 일반 디바이스에 대응하는 가공 데이터를 데이터 셋으로 하여 인공지능 모델을 학습하는 단계;를 포함한다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=6c650beb4cee9ce4122b704b88878c93191078e9070af38d272b6f7fc6c1c0999b8edb33fae7f61ae44ef1e60c52d943389e97b6b556580f099eb8f3b5a8ff30cf9033651c361d0b",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cf85c8c7fe549487099838d35d6d4bc183869acb74f229c555800d1dbf2d40e0a00248336d4ab870c32e3fc30d25f91df5ec14774525766240",
+          "indexNo": "3",
+          "inventionTitle": "멀티 디바이스 환경에서의 일관된 성능을 위한 인공지능 사운드 모델 학습 방법, 프로그램, 및 장치",
+          "ipcNumber": "G06N 3/0475|G06N 3/094|G06N 3/08|G10L 25/30|G10L 15/06",
+          "openDate": "20250521",
+          "openNumber": "1020250070753",
+          "publicationDate": "",
+          "publicationNumber": "",
+          "registerDate": "",
+          "registerNumber": "",
+          "registerStatus": "공개"
+        },
+        {
+          "applicantName": "주식회사 디플리",
+          "applicationDate": "20191017",
+          "applicationNumber": "1020190129242",
+          "astrtCont": "본 발명의 일 실시예에 따른 오디오 데이터 딥러닝 학습 방법은 (a) 입력되는 원본 오디오 데이터(original audio data)를 실시간으로 가공하는 단계, (b) 상기 (a) 단계에서 가공된 오디오 데이터(processed audio data)를 데이터베이스 관리 시스템(DBMS)에 구조화화여 저장하는 단계 및 (c) 상기 (b) 단계에서 구조화된 오디오 데이터(structured audio data)에 접근하여 딥러닝 학습을 수행하는 단계를 포함하는 것을 특징으로 한다. 본 발명의 일 실시예에 따르면, 원본 오디오 데이터를 수집하는 즉시 실시간으로 전처리하므로 원본 오디오 데이터를 모두 파일 형태로 보관할 필요성이 낮아지고, 데이터베이스 관리 시스템에 구조화하여 저장된 오디오 데이터에 선택적으로 접근하여 딥러닝 학습을 수행하므로 학습의 효율과 속도를 크게 증가시킬 수 있다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=6c650beb4cee9ce4122b704b88878c93fcc0fd6ad2f8c9edefa7c77b3196bc3a2fa8f24c79bbe0464bd77b4dce5d8ac353ac01f7e9e270fe3da78d5c3415d2174aa51ee60f4304bf",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cfe28c7a67068825d3815a7692bc09f3a4b945dd784e32d6ffc1807588c00834ba983f36dd8d8eef64386428201d20eda10a485f51c338a568",
+          "indexNo": "4",
+          "inventionTitle": "대용량 오디오 데이터의 효율적인 딥러닝 학습 방법 및 시스템",
+          "ipcNumber": "G06N 3/08|G06N 5/022|G06F 16/61",
+          "openDate": "20210427",
+          "openNumber": "1020210045789",
+          "publicationDate": "",
+          "publicationNumber": "",
+          "registerDate": "",
+          "registerNumber": "",
+          "registerStatus": "거절"
+        },
+        {
+          "applicantName": "주식회사 디플리",
+          "applicationDate": "20191017",
+          "applicationNumber": "1020190129241",
+          "astrtCont": "본 발명의 일 실시예에 따른 딥러닝 모델의 분리 수행 방법은 클라이언트가 원본 데이터를 입력 값으로 설정하고 제1 함수를 적용하여 중간 데이터를 출력하는 단계, 상기 클라이언트가 서버로 상기 중간 데이터를 전송하는 단계, 상기 서버가 상기 중간 데이터를 수신하는 단계 및 상기 서버가 상기 중간 데이터를 입력 값으로 설정하고 제2 함수를 적용하여 결과 데이터를 출력하는 단계를 포함하고, 상기 제1 함수와 제2 함수는 딥러닝 모델로 학습된 모함수를 구성하고, 상기 제1 함수와 제2 함수는 사전 결정된 기준으로 상기 모함수를 둘로 나눈 부분 함수인 것을 특징으로 한다. 본 발명의 일 실시예에 따르면, 딥러닝 모델을 활용한 온라인 서비스의 제공 중에 제3자가 네트워크를 침입하여 데이터를 탈취한다 하더라도 상기 제3자가 개인정보와 같은 중요 정보를 입수하지 못하도록 방지할 수 있다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=6c650beb4cee9ce4122b704b88878c93fcc0fd6ad2f8c9edefa7c77b3196bc3a2fa8f24c79bbe0464bd77b4dce5d8ac3993fc6628acfc18f3a5b0885db5413fb99cfb5ee52d7b9c2",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cfe28c7a67068825d3815a7692bc09f3a4b945dd784e32d6ffc1807588c00834baf7f67c5b029c9055cfcb28c58a44044152e208e2bc163a7d",
+          "indexNo": "5",
+          "inventionTitle": "딥러닝 모델의 분리 수행을 위한 방법, 장치 및 시스템",
+          "ipcNumber": "G06N 3/08|G06N 5/04|G06F 21/55",
+          "openDate": "20210427",
+          "openNumber": "1020210045788",
+          "publicationDate": "",
+          "publicationNumber": "",
+          "registerDate": "",
+          "registerNumber": "",
+          "registerStatus": "거절"
+        },
+        {
+          "applicantName": "주식회사 디플리",
+          "applicationDate": "20181114",
+          "applicationNumber": "1020180140186",
+          "astrtCont": "본 발명의 일 실시예에 따른 이상 탐지 방법은 정상 데이터(10)를 입력으로 하여 사전 결정된 차원의 벡터를 출력하도록 오토 인코더(E)(auto encoder)를 학습시키는 준비 단계(S100), 상기 준비 단계에서 훈련된 오토 인코더(TE)에 훈련용 데이터를 입력하여 획득한 벡터 정보를 가공한 후, 가공된 훈련용 데이터 벡터 정보를 활용하여 분류기(S)를 학습시킴으로써 상기 분류기(S)가 정상 데이터와 이상 데이터를 구분하는 능력을 향상시키는 분류기(S) 생성 단계(S200)를 포함한다. 본 발명의 일 실시예에 따르면, 확보된 이상 데이터가 적더라도 임의의 외부 데이터가 정상 데이터인지 이상 징후를 나타내는 이상 데이터인지 쉽게 분류할 수 있다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=6c650beb4cee9ce4122b704b88878c937b245745f272d3932eaabee2c4c2de7543959fa461d547762d607adbe3fa575cf0d34abb8ac49c6f20514fda66789eb362509a7e3ae5c2ec",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cfc2410d55bf76056cbff10cd9c2186b06916ed28819a37ddcd77f6140c09dfd623d3fc014bacf1ac14981580dacde888341af93998438c3ba",
+          "indexNo": "6",
+          "inventionTitle": "신경망 분석 기반의 소리 분류용 이상 탐지 방법",
+          "ipcNumber": "H04L 9/40",
+          "openDate": "20200522",
+          "openNumber": "1020200056183",
+          "publicationDate": "20231110",
+          "publicationNumber": "",
+          "registerDate": "20231107",
+          "registerNumber": "1026007450000",
+          "registerStatus": "등록"
+        },
+        {
+          "applicantName": "주식회사 디플리",
+          "applicationDate": "20181114",
+          "applicationNumber": "1020180140185",
+          "astrtCont": "본 발명의 일 실시예에 따른 암호화 과정이 내재된 데이터 압축 방법은 복수의 부분 압축 단계 및 하나 이상의 암호화 브릿지(Bridge)를 포함하는 것을 특징으로 한다. 본 발명의 일 실시예에 따르면, 짧은 시간 내에 압축 및 암호화를 모두 수행하여 연산력이 낮은 장치에서도 실시간 데이터 수집 및 전송이 가능하다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=2ba38663aa11ff0f6ca91af6061a2e0089c2bcc7695fdb5a24bb1f46c0d88d1447fc6b923f76a3ef801e93f39511188a31c8c51362e529c7255c21b0c0275e1b9173df40e46d9c2e",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cf9b503c62cb7f523cacf211bc68909a40ed8db44f4dcb9ae7f0889ffcc57a5b97b1e653cac83c06c5520a8754a0c201b97c794ca5535f8b3f",
+          "indexNo": "7",
+          "inventionTitle": "데이터 압축 및 암호화 방법 그리고 장치",
+          "ipcNumber": "H04L 9/06|H04L 9/40",
+          "openDate": "20200522",
+          "openNumber": "1020200056182",
+          "publicationDate": "",
+          "publicationNumber": "",
+          "registerDate": "",
+          "registerNumber": "",
+          "registerStatus": "취하"
+        },
+        {
+          "applicantName": "주식회사 디플리",
+          "applicationDate": "20180629",
+          "applicationNumber": "1020180075332",
+          "astrtCont": "본 발명의 일 실시예에 따른 실시간 소리 분석 장치는 실시간으로 발생하는 소리를 수집하는 입력부, 수집된 실시간 소리 데이터를 머신 러닝이 용이하도록 가공하는 신호처리부, 사전 수집된 소리 데이터를 머신 러닝(Machine Learning) 방식으로 학습하여, 소리 유형(Category) 정보를 구분하기 위한 제1 함수를 훈련시키는 제1 학습부, 및 상기 제1 함수에 의해 신호처리 된 소리 데이터를 소리 유형으로 분류하는 제1 분류기를 포함하는 것을 특징으로 한다. 본 발명의 일 실시예에 따르면, 머신 러닝에 기초하여 실시간으로 수집되는 소리의 유형 및 원인을 학습할 수 있고, 실시간으로 수집되는 소리의 유형과 원인에 대하여 보다 정확한 예측이 가능하다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=2ba38663aa11ff0f6ca91af6061a2e00d1f0d8111dd511e5d45d32031282fc783350a359c4915e11bc5f24c72d7be944fbab266f5b424ed74a54bbd0bce23706cfbc132e689f34ee",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cf7a9819911a2ca604c49446162285964e8497efb1a51cb74f3ad9dbf645c83963aa78afc62b26744cf28f3c350d7778152c10dc9462dba34f",
+          "indexNo": "8",
+          "inventionTitle": "실시간 소리 분석 방법 및 장치",
+          "ipcNumber": "G10L 25/27|G10L 25/18|G06N 20/00",
+          "openDate": "20200108",
+          "openNumber": "1020200002148",
+          "publicationDate": "20200914",
+          "publicationNumber": "",
+          "registerDate": "20200907",
+          "registerNumber": "1021553800000",
+          "registerStatus": "등록"
+        },
+        {
+          "applicantName": "주식회사 디플리",
+          "applicationDate": "20180629",
+          "applicationNumber": "1020180075331",
+          "astrtCont": "본 발명의 일 실시예에 따른 실시간 소리 분석 방법은 사전 수집된 소리 데이터를 제1 머신 러닝(Machine Learning) 방식으로 학습하여 소리 유형 정보를 구분하기 위한 제1 함수를 최적화하는 제1 학습 단계(S11), 사전 수집된 소리 데이터를 제2 머신 러닝(Machine Learning) 방식으로 학습하여 소리 원인 정보를 구분하기 위한 제2 함수를 최적화하는 제2 학습 단계(S21), 제1 분석 장치가 실시간 소리 데이터를 수집하여 상기 제1 함수를 통해 소리 유형(Category)으로 분류하는 제1 추론 단계(S12), 상기 제1 분석 장치에서 제2 분석 장치로 실시간 소리 데이터를 전송하는 단계(S20), 및 전송받은 상기 실시간 소리 데이터를 상기 제2 함수를 통해 소리 원인으로 분류하는 제2 추론 단계(S22)를 포함하는 것을 그 특징으로 한다. 본 발명의 일 실시예에 따르면, 머신 러닝에 기초하여 실시간으로 수집되는 소리의 유형 및 원인을 학습할 수 있고, 실시간으로 수집되는 소리의 유형과 원인에 대하여 보다 정확한 예측이 가능하다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=6c650beb4cee9ce4122b704b88878c933cb255aabe23752f2690abca2cc599e773595e693981748a6f379f207d998dddfcfd066437f77a21414185f6b73db34842901d578e79e70e",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cf70985ee69fa2f564c4fd3c9596e560db963a96ce3582e316fa6b367994f1cbcd8de0decabac4e82a09a82c2bf9f2d66b3f2d265f70d8ca93",
+          "indexNo": "9",
+          "inventionTitle": "실시간 소리 분석 방법 및 시스템",
+          "ipcNumber": "G10L 25/27|G06N 20/00|G10L 25/18",
+          "openDate": "20200108",
+          "openNumber": "1020200002147",
+          "publicationDate": "20210428",
+          "publicationNumber": "",
+          "registerDate": "20210405",
+          "registerNumber": "1022383070000",
+          "registerStatus": "등록"
+        },
+        {
+          "applicantName": "주식회사 디플리",
+          "applicationDate": "20180629",
+          "applicationNumber": "1020180075333",
+          "astrtCont": "본 발명의 일 실시예에 따른 레이블이 부여되지 않은 데이터의 자동 레이블링 방법은 레이블이 부여되지 않은 데이터를 수집하는 단계(S31), 상기 레이블이 부여되지 않은 데이터를 클러스터링 기법에 의해 복수의 그룹으로 분류하는 단계(S34), 상기 복수의 그룹 각각에서 일부 데이터를 선택하는 단계(S35), 선택된 일부 데이터의 레이블을 부여하는 단계(S36), 및 상기 일부 데이터에 부여된 레이블을 대응하는 그룹에 속하는 전체 데이터에 부여하는 단계(S37)를 포함하는 것을 특징으로 한다. 본 발명의 일 실시예에 따르면, 일부 트레이닝 데이터에만 레이블을 부여한 후 나머지 모든 트레이닝 데이터에는 레이블을 자동으로 부여하게 되므로, 머신 러닝으로 훈련되는 함수의 학습이 더 빠른 시간 안에 수행될 수 있고, 레이블을 부여하는 노동력을 획기적으로 줄일 수 있다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=2ba38663aa11ff0f6ca91af6061a2e003a3885791f91658b7a0e45c8042cf3a2f7fe7333f0354a8ad15c06bc818050c081cd6e529ee43387b4f3bf4e178e68e810c353b9984e6073",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cf1fd34e2fa0e15119bccb2694f0e919fa5a460fc2a7fd70d15d902ef880707fe69e35118a4b4fac1bc0be86484bfdc98df287644ed3a2d2b6",
+          "indexNo": "10",
+          "inventionTitle": "자동 레이블링이 가능한 머신 러닝 방법 및 장치",
+          "ipcNumber": "G06N 20/00|G06F 16/28",
+          "openDate": "20200108",
+          "openNumber": "1020200002149",
+          "publicationDate": "20201211",
+          "publicationNumber": "",
+          "registerDate": "20201203",
+          "registerNumber": "1021893620000",
+          "registerStatus": "등록"
+        }
+      ]
+    },
+    "identifiers": null,
+    "match_confidence": "name_only"
+  },
+  "scores": {
+    "technology": {
+      "axis": "기술력",
+      "tier": "보통",
+      "metrics": {
+        "total_count": 10,
+        "registered_count": 4,
+        "active_count": 7,
+        "ipc_class_count": 5,
+        "ipc_classes": [
+          "G06F",
+          "G06N",
+          "G10L",
+          "G16Y",
+          "H04L"
+        ],
+        "is_rnd_venture_type": false
+      },
+      "source": "KIPRISPlus patUtiModInfoSearchSevice/getAdvancedSearch"
+    },
+    "investment": {
+      "axis": "투자이력",
+      "tier": "없음",
+      "metrics": {
+        "has_venture_investment_type": false,
+        "venture_confirm_type": "혁신성장유형"
+      },
+      "source": "data.go.kr 중소벤처기업부_벤처기업명단(15084581)"
+    },
+    "credibility": {
+      "axis": "공신력",
+      "tier": "만료",
+      "metrics": {
+        "has_certification": true,
+        "cert_type": "혁신성장유형",
+        "cert_agency": "벤처기업확인기관",
+        "valid_from": "2023-06-07",
+        "valid_until": "2026-06-06",
+        "days_until_expiry": -75
+      },
+      "source": "data.go.kr 중소벤처기업부_벤처기업명단(15084581)"
+    }
+  },
+  "flags": [
+    {
+      "rule": "C2",
+      "level": "확인필요",
+      "message": "벤처 인증이 75일 전(2026-06-06)에 만료되었습니다."
+    },
+    {
+      "rule": "D1",
+      "level": "중립",
+      "message": "초기단계, 공시의무 없음 (DART 미등록 또는 재무 데이터 없음)"
+    }
+  ],
+  "vc_matches": {
+    "is_demo_data": true,
+    "note": "룰 기반 데모입니다. VC 목록은 실제 투자 성향 조사가 아닌 가상 시드 데이터입니다.",
+    "inferred_tags": {
+      "stage": "초기(투자전)",
+      "industry": [
+        "그 외 기타 정보 서비스업",
+        "정보처리S/W"
+      ],
+      "theme": [
+        "AI/머신러닝",
+        "IoT",
+        "네트워크·통신",
+        "소프트웨어·컴퓨팅",
+        "음성·오디오"
+      ]
+    },
+    "matches": [
+      {
+        "vc_name": "노스브릿지파트너스",
+        "match_score": 6,
+        "reasons": [
+          "단계 일치: 초기(투자전)",
+          "업종 일치: 정보처리S/W",
+          "테마 일치: AI/머신러닝, 소프트웨어·컴퓨팅"
+        ],
+        "vc_tags": {
+          "stage_tags": [
+            "예비창업",
+            "초기(투자전)"
+          ],
+          "industry_tags": [
+            "정보처리S/W",
+            "소프트웨어"
+          ],
+          "theme_tags": [
+            "AI/머신러닝",
+            "소프트웨어·컴퓨팅"
+          ]
+        }
+      },
+      {
+        "vc_name": "딥밸리캐피탈",
+        "match_score": 6,
+        "reasons": [
+          "단계 일치: 초기(투자전)",
+          "업종 일치: 정보처리S/W",
+          "테마 일치: AI/머신러닝, 음성·오디오"
+        ],
+        "vc_tags": {
+          "stage_tags": [
+            "초기(투자전)",
+            "투자유치이력있음"
+          ],
+          "industry_tags": [
+            "정보처리S/W"
+          ],
+          "theme_tags": [
+            "AI/머신러닝",
+            "음성·오디오",
+            "컴퓨터비전"
+          ]
+        }
+      },
+      {
+        "vc_name": "콘텐츠라인파트너스",
+        "match_score": 4,
+        "reasons": [
+          "단계 일치: 초기(투자전)",
+          "업종 일치: 정보처리S/W"
+        ],
+        "vc_tags": {
+          "stage_tags": [
+            "예비창업",
+            "초기(투자전)"
+          ],
+          "industry_tags": [
+            "콘텐츠·미디어",
+            "정보처리S/W"
+          ],
+          "theme_tags": [
+            "영상통신·디스플레이"
+          ]
+        }
+      },
+      {
+        "vc_name": "커넥트웨이브캐피탈",
+        "match_score": 3,
+        "reasons": [
+          "업종 일치: 정보처리S/W",
+          "테마 일치: 네트워크·통신"
+        ],
+        "vc_tags": {
+          "stage_tags": [
+            "투자유치이력있음"
+          ],
+          "industry_tags": [
+            "정보처리S/W",
+            "전기·전자"
+          ],
+          "theme_tags": [
+            "네트워크·통신",
+            "무선통신"
+          ]
+        }
+      },
+      {
+        "vc_name": "헬스브릿지인베스트먼트",
+        "match_score": 2,
+        "reasons": [
+          "단계 일치: 초기(투자전)"
+        ],
+        "vc_tags": {
+          "stage_tags": [
+            "예비창업",
+            "초기(투자전)"
+          ],
+          "industry_tags": [
+            "바이오·의료"
+          ],
+          "theme_tags": [
+            "바이오·헬스케어"
+          ]
+        }
+      }
+    ]
+  }
+}

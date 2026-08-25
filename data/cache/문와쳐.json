@@ -1,0 +1,59 @@
+{
+  "profile": {
+    "input_name": "문와쳐",
+    "normalized_name": "문와쳐",
+    "venture": null,
+    "dart": null,
+    "patent": {
+      "applicant_key": "문와쳐",
+      "matched_by_person_number": false,
+      "totalCount": 0,
+      "items": []
+    },
+    "identifiers": null,
+    "match_confidence": "unmatched"
+  },
+  "scores": {
+    "technology": {
+      "axis": "기술력",
+      "tier": "데이터없음",
+      "metrics": {
+        "total_count": 0,
+        "registered_count": 0,
+        "active_count": 0,
+        "ipc_class_count": 0,
+        "ipc_classes": [],
+        "is_rnd_venture_type": false
+      },
+      "source": "KIPRISPlus patUtiModInfoSearchSevice/getAdvancedSearch"
+    },
+    "investment": {
+      "axis": "투자이력",
+      "tier": "정보없음",
+      "metrics": {
+        "has_venture_investment_type": null
+      },
+      "source": "data.go.kr 중소벤처기업부_벤처기업명단(15084581)"
+    },
+    "credibility": {
+      "axis": "공신력",
+      "tier": "정보없음",
+      "metrics": {
+        "has_certification": false
+      },
+      "source": "data.go.kr 중소벤처기업부_벤처기업명단(15084581)"
+    }
+  },
+  "flags": [
+    {
+      "rule": "D1",
+      "level": "중립",
+      "message": "초기단계, 공시의무 없음 (DART 미등록 또는 재무 데이터 없음)"
+    },
+    {
+      "rule": "D2",
+      "level": "판단보류",
+      "message": "벤처확인·특허·DART 세 축 모두 공백 — 근거 불충분, 판단 보류."
+    }
+  ]
+}

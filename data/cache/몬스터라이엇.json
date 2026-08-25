@@ -1,0 +1,135 @@
+{
+  "profile": {
+    "input_name": "몬스터라이엇",
+    "normalized_name": "몬스터라이엇",
+    "venture": {
+      "대표자명(익명)": "고**",
+      "벤처유효시작일": "2024-09-24",
+      "벤처유효종료일": "2027-09-23",
+      "벤처확인기관": "벤처기업확인기관",
+      "벤처확인유형": "벤처투자유형",
+      "신규_재확인": "신규",
+      "업종명(11차)": "만화 출판업",
+      "업종분류(기보)": "정보처리S/W",
+      "업체명": "주식회사 몬스터라이엇",
+      "연번": 14245,
+      "주생산품": "만화, 웹툰",
+      "주소": "부산광역시 부산진구",
+      "지역": "부산"
+    },
+    "dart": null,
+    "patent": {
+      "applicant_key": "몬스터라이엇",
+      "matched_by_person_number": false,
+      "totalCount": 3,
+      "items": [
+        {
+          "applicantName": "주식회사  몬스터라이엇",
+          "applicationDate": "20250307",
+          "applicationNumber": "1020250029851",
+          "astrtCont": "전자 장치가 개시된다. 전자 장치는, 메모리, 상기 통신부 및 상기 메모리와 동작 가능하게 연결되는 적어도 하나의 프로세서를 포함하고, 상기 적어도 하나의 프로세서는, 사용자 입력을 수신하고, 상기 사용자 입력에 포함된 이미지에 기반하여 컷 영역을 식별하여 컷 영역 정보를 생성하고, 적어도 하나의 태깅(tagging)을 생성하고, 업데이트된 이미지를 생성하고, 상기 컷 영역 정보, 상기 적어도 하나의 태깅, 상기 업데이트 이미지를 저장할 수 있다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=6c650beb4cee9ce4122b704b88878c93f8ee6873af8eb594bd1ff060b990a828481db1d3a2195729ec31ffd2a67fe8a125bbb16481992318e677a77c021b9fa6ad5ad0b6b329c3ef",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cf8074c39df5f3940a51b412d7f241925c1f7e3e1f59c8f3575d310ee77f1dede605e315fe3ad8e4820d47ecee188a09cc7b02c0f1421d099c",
+          "indexNo": "1",
+          "inventionTitle": "이미지 데이터에 기반하여 학습 데이터 셋을 구축하기 위한 장치 및 방법",
+          "ipcNumber": "G06F 16/583|G06F 16/55|G06F 16/51|G06F 16/532|G06F 16/538|G06V 20/70|G06V 10/774|G06T 11/60",
+          "openDate": "20260220",
+          "openNumber": "1020260024332",
+          "publicationDate": "",
+          "publicationNumber": "",
+          "registerDate": "",
+          "registerNumber": "",
+          "registerStatus": "공개"
+        },
+        {
+          "applicantName": "주식회사  몬스터라이엇",
+          "applicationDate": "20250307",
+          "applicationNumber": "1020250029827",
+          "astrtCont": "웹툰 이미지 생성을 위한 시스템이 개시된다. 웹툰 이미지 생성을 위한 시스템은, 웹툰 제작을 위한 사용자 인터페이스를 표시하고, 상기 사용자 인터페이스를 통하여 사용자 입력을 획득하도록 구성되는 클라이언트 장치, 상기 클라이언트 장치로부터 수신되는 제1 이미지 생성에 포함되는 상기 사용자 입력을 분석하여 명령 프롬프트를 생성하고 이에 기반하여 적어도 하나의 이미지 생성 모델을 선택하도록 구성되는 제1 서버 장치, 및 상기 제1 서버 장치로부터 제2 이미지 생성을 요청 받아, 구성 이미지를 생성하도록 구성되는 제2 서버 장치를 포함할 수 있다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=6c650beb4cee9ce4122b704b88878c93f8ee6873af8eb594bd1ff060b990a828481db1d3a2195729ec31ffd2a67fe8a15afe17a7c652db92a33d697f6de2233f3e0f3dd7499f35a9",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cf8074c39df5f3940a51b412d7f241925c1f7e3e1f59c8f3575d310ee77f1dede6bdc5487ec6aae41372808e02353d89625e9628faaf8ffb50",
+          "indexNo": "2",
+          "inventionTitle": "웹툰 이미지 제작을 위한 클라이언트, 서버 프레임워크",
+          "ipcNumber": "G06Q 50/10|G06T 11/00|G06N 3/0475|G06N 3/0464|G06N 20/20|G06V 10/70|G06F 16/51|G06F 16/55",
+          "openDate": "20260220",
+          "openNumber": "1020260024330",
+          "publicationDate": "",
+          "publicationNumber": "",
+          "registerDate": "",
+          "registerNumber": "",
+          "registerStatus": "공개"
+        },
+        {
+          "applicantName": "주식회사  몬스터라이엇",
+          "applicationDate": "20250307",
+          "applicationNumber": "1020250029839",
+          "astrtCont": "서버 장치가 개시된다. 서버 장치는, 통신부, 메모리, 상기 통신부 및 상기 메모리와 동작 가능하게 연결되는 적어도 하나의 프로세서를 포함하고, 상기 적어도 하나의 프로세서는, 클라이언트 장치로부터 제1 이미지 생성 요청을 수신하고, 웹툰 이미지 구성 정보를 생성하고, 적어도 하나의 기계 학습 모델을 선택하고, 상기 적어도 하나의 기계 학습 모델에 상응하는 적어도 하나의 외부 서버 장치로, 제2 이미지 생성 요청을 송신하고, 상기 적어도 하나의 외부 서버 장치로부터 구성 이미지를 생성하고, 상기 구성 이미지에 기반하여 웹툰 이미지를 생성하고, 상기 웹툰 이미지를 상기 클라이언트 장치로 송신하도록 구성될 수 있다.",
+          "bigDrawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=6c650beb4cee9ce4122b704b88878c93f8ee6873af8eb594bd1ff060b990a828481db1d3a2195729ec31ffd2a67fe8a12a2e9f22a8df90f8a831da83a01d59f883398fb3fab8457c",
+          "drawing": "http://plus.kipris.or.kr/openapi/fileToss.jsp?arg=ed43a0609e94d6e22d01c5c32ba711cf8074c39df5f3940a51b412d7f241925c1f7e3e1f59c8f3575d310ee77f1dede66bb48cc84ed9ee9249ffbc6bfbea8e801a20907587c30d83",
+          "indexNo": "3",
+          "inventionTitle": "앙상블 모델에 기반하여 웹툰 이미지를 생성하는 방법 및 장치",
+          "ipcNumber": "G06T 11/60|G06F 3/0487|G06F 40/40|G06N 20/00|G06Q 50/10|G06N 3/0475",
+          "openDate": "20260220",
+          "openNumber": "1020260024331",
+          "publicationDate": "",
+          "publicationNumber": "",
+          "registerDate": "",
+          "registerNumber": "",
+          "registerStatus": "공개"
+        }
+      ]
+    },
+    "identifiers": null,
+    "match_confidence": "name_only"
+  },
+  "scores": {
+    "technology": {
+      "axis": "기술력",
+      "tier": "낮음",
+      "metrics": {
+        "total_count": 3,
+        "registered_count": 0,
+        "active_count": 3,
+        "ipc_class_count": 5,
+        "ipc_classes": [
+          "G06F",
+          "G06N",
+          "G06Q",
+          "G06T",
+          "G06V"
+        ],
+        "is_rnd_venture_type": false
+      },
+      "source": "KIPRISPlus patUtiModInfoSearchSevice/getAdvancedSearch"
+    },
+    "investment": {
+      "axis": "투자이력",
+      "tier": "있음",
+      "metrics": {
+        "has_venture_investment_type": true,
+        "venture_confirm_type": "벤처투자유형"
+      },
+      "source": "data.go.kr 중소벤처기업부_벤처기업명단(15084581)"
+    },
+    "credibility": {
+      "axis": "공신력",
+      "tier": "유효",
+      "metrics": {
+        "has_certification": true,
+        "cert_type": "벤처투자유형",
+        "cert_agency": "벤처기업확인기관",
+        "valid_from": "2024-09-24",
+        "valid_until": "2027-09-23",
+        "days_until_expiry": 398
+      },
+      "source": "data.go.kr 중소벤처기업부_벤처기업명단(15084581)"
+    }
+  },
+  "flags": [
+    {
+      "rule": "D1",
+      "level": "중립",
+      "message": "초기단계, 공시의무 없음 (DART 미등록 또는 재무 데이터 없음)"
+    }
+  ]
+}

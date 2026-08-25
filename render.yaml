@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: kstartup-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.12
+      - key: KIPRIS_KEY
+        sync: false
+      - key: DATA_GO_KR_KEY
+        sync: false
+      - key: DART_KEY
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false

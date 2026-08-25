@@ -1,0 +1,51 @@
+:root {
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --border: #e2e2e6;
+  --text: #1f2024;
+  --text-muted: #6b6d76;
+
+  --tone-positive-bg: #e6f6ec;
+  --tone-positive-text: #1c7c40;
+  --tone-info-bg: #e8f0fe;
+  --tone-info-text: #2054c9;
+  --tone-caution-bg: #fef3e0;
+  --tone-caution-text: #9a5b00;
+  --tone-negative-bg: #fdeaea;
+  --tone-negative-text: #b3261e;
+  --tone-neutral-bg: #eeeef0;
+  --tone-neutral-text: #55575f;
+
+  font: 16px/1.5 -apple-system, "Pretendard", "Malgun Gothic", "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: var(--tone-info-text);
+}
