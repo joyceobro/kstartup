@@ -263,6 +263,46 @@
   color: var(--tone-info-text);
 }
 
+/* Narrative summary (LLM) */
+.narrative-section {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.narrative-section__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.narrative-section__head h3 {
+  font-size: 16px;
+}
+
+.narrative-section__note {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.narrative-section__body {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.65;
+  white-space: pre-line;
+}
+
+.iq-section__legend {
+  color: var(--text-muted);
+}
+
+.iq-item__refined {
+  color: var(--tone-info-text);
+  font-weight: 700;
+}
+
 /* Interview question seed */
 .iq-section {
   padding: 20px;

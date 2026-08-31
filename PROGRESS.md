@@ -150,11 +150,56 @@ CLAUDE.md가 08-27에 "성장성 평가 & VC매칭" → **"기관 심사역용 �
   ⚠️ `as_of`가 오늘로 바뀌어 디플리 C2 메시지 "75일 전"→"86일 전"으로 갱신됨 (의도된 변화).
 - 검증: `compileall`, `pipeline.evaluate` 3케이스, `npm run build`, `npx oxlint src` 통과.
   로컬 백엔드+프론트 띄워 디플리 케이스 브라우저 렌더 확인 (플래그 콜아웃 + 질의서 시드 섹션 정상).
-- ⚠️ 배포 반영 아직 안 함 — Render/Vercel은 git push 시 자동배포. **아직 커밋/푸시 안 함.**
+### 배포 반영 (2026-08-31)
+
+- 커밋 `36a9e37`(재정의 반영) + `a1c406d`(빈 커밋, 배포 트리거) push 완료.
+- **Render**: `36a9e37` 자동배포 확인 (openapi title v0.2.0, `/api/evaluate`에 `interview_questions`,
+  CORS `access-control-allow-origin: https://kstartupcopy.vercel.app` 정상).
+- **Vercel**: 8/25 이후 자동배포가 한 번도 안 걸려 있었음. 원인 = 프로젝트가 `joyceobro/kstartup`이
+  아닌 다른 저장소(`kstartup_copy`)에 연결돼 있었고, 8/25 배포는 루트를 Python으로 오감지한 것.
+  조치: 저장소를 `joyceobro/kstartup`으로 재연결 + `VITE_API_BASE_URL=https://kstartup-api.onrender.com`
+  env var(Production) 설정 + `a1c406d` 빈 커밋으로 트리거. 이번엔 Vite 빌드 정상 (번들 `index-GXUvU7H1.js`,
+  title "근거 …", `심층심사 질의서 시드` 문구 포함, `kstartup-api.onrender.com` 하드코딩됨).
+  - Vercel 팀/프로젝트 slug: `inwhites-projects` / `kstartup` (도메인은 여전히 `kstartupcopy.vercel.app`).
+
+## LLM 근거 서술 레이어 (2026-08-31)
+
+대회 필수항목(기획서 5번 "생성형 AI 모델 적용 방안") 대응. 기존 코드엔 LLM 호출이 전혀
+없었음 → 단일 Claude 호출 레이어 추가. **핵심 원칙 유지: 점수·등급은 결정론 집계 그대로,
+LLM은 서술·문장화만** (CLAUDE.md 1절 Non-self-grading).
+
+- `core/narrative.py` (신규) — `generate_narrative(result)`:
+  - 입력: 결정론 결과 JSON에서 원천값만 추림(`_compact_input`).
+  - 출력: `{summary(종합 서술 3~5문장), questions[{rule, question}](플래그별 질의문항 다듬기), model, is_ai_generated}`.
+  - `anthropic` SDK, `client.messages.create(model=claude-opus-5, thinking=adaptive, output_config={effort:low, format:json_schema})`.
+  - **ANTHROPIC_API_KEY 미설정 / SDK 없음 / API 오류 → None 반환.** 파이프라인·배포 URL 생존 불변.
+  - 모델은 `ANTHROPIC_MODEL` 환경변수로 교체 가능(기본 `claude-opus-5`).
+- `core/pipeline.py` — `_attach_narrative()`: `evaluate()` 응답에 `narrative` 키 추가. LLM이 다듬은
+  질의문항은 `interview_questions[].question`을 rule 단위로 덮어쓰고 `ai_refined: true` 표시(원본은 fallback).
+- `scripts/backfill_narrative.py` (신규) — `data/cache/*.json`에 narrative를 구워넣는 1회성 스크립트.
+  키 없이 실행하면 `narrative: null`로만 정규화(현재 상태). **키 확보 후 재실행 → 커밋 필요**.
+- `requirements.txt`: `anthropic>=0.125,<1` (0.x = .venv Python 3.9 호환. Render도 3.9.12).
+- `.env.example` / `render.yaml`: `ANTHROPIC_API_KEY` (sync:false) 추가.
+- 프론트: `NarrativeSummary.jsx`(신규, "종합 근거 서술" 섹션 + "AI 생성" 배지),
+  App.jsx에서 ProfileHeader 아래 배치. InterviewQuestionList에 ✎(AI 다듬음) 마커.
+- 검증: `compileall`, TestClient로 `/api/evaluate`(캐시 응답에 `narrative` 키 정상, 키 없어 null),
+  `npm run build`, `oxlint` 통과. **LLM 실제 호출은 키가 없어 미검증** — 코드 경로는 try/except로
+  전부 감싸 실패 시 None.
+
+### ⚠️ 배포 전 남은 일 (ANTHROPIC_API_KEY 필요)
+
+1. Anthropic API 키 발급 → 로컬 `.env`에 `ANTHROPIC_API_KEY=...` 추가.
+2. `./.venv/Scripts/python.exe -m scripts.backfill_narrative` 실행 → 데모 캐시에 narrative 구움.
+3. 결과 확인 후 `git add data/cache/ && git commit && git push`.
+4. Render 대시보드 → Environment → `ANTHROPIC_API_KEY` 추가 (비캐시 기업 라이브 조회용).
+5. 배포 URL에서 디플리 케이스에 "종합 근거 서술" 섹션 뜨는지 확인.
+   (키 안 넣어도 서비스는 정상 — 서술 섹션만 안 보임.)
 
 ### 다음 세션 시작점
 
-- [ ] 이번 세션 변경분 커밋 & push → Render/Vercel 자동배포 확인 (배포 URL로 재검증)
+- [ ] 위 "배포 전 남은 일" 5단계 (ANTHROPIC_API_KEY)
+- [ ] 대회 기획서 작성 — 양식 `(첨부1) 2026 금융 AI Challenge 공모전 기획서.hwpx` (레포 루트).
+      7개 필수 목차 추출 완료 (PROGRESS 아래 메모/메모리 참고). 산출 형태: `docs/기획서.md`.
 - [ ] (선택) UptimeRobot 등으로 Render 슬립 방지 핑 설정
 - [ ] 기획서·기능명세서 PDF 마무리 (제출용 URL: 프론트 `https://kstartupcopy.vercel.app`,
       백엔드 `https://kstartup-api.onrender.com`)

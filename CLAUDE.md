@@ -37,7 +37,9 @@
 
 **LLM은 딱 필요한 곳에만.**
 - 이 파이프라인은 본질적으로 결정론적이다. LangGraph 등 에이전트 아키텍처는 **쓰지 않는다** (오버엔지니어링, 3주 리스크).
-- LLM의 유일한 역할: 최종 리포트의 자연어 근거 서술. (뉴스 감성분석은 소스에서 제외되어 현재 불필요.)
+- LLM의 유일한 역할: 최종 리포트의 자연어 근거 서술 + 반증 플래그를 심층심사 질의 문항으로 다듬기
+  (`core/narrative.py`, Claude 단일 호출). 점수·등급은 절대 판정하지 않는다. 키(ANTHROPIC_API_KEY)가
+  없거나 호출이 실패하면 서술만 생략되고 결정론 파이프라인은 그대로 동작한다. (뉴스 감성분석은 소스에서 제외.)
 
 **데이터 부재를 처벌하지 않는다.**
 - 초기 기업은 재무·특허가 없는 게 정상이다. "없음 = 저평가"로 처리하지 않는다.
@@ -130,7 +132,7 @@ red flag는 **감점이 아니라 "확인 필요" 플래그**다. 최종 판단�
 
 ```
 venture-eval/
-├── .env                    # KIPRIS_KEY, DATA_GO_KR_KEY, DART_KEY (git 제외)
+├── .env                    # KIPRIS_KEY, DATA_GO_KR_KEY, DART_KEY, ANTHROPIC_API_KEY (git 제외)
 ├── collectors/
 │   ├── venture.py          # 벤처기업명단
 │   ├── patent.py           # KIPRIS 2단계 (공통→항목별검색)
@@ -139,7 +141,11 @@ venture-eval/
 │   ├── normalize.py        # 개체 연결 (사업자/법인번호, 주소 보정)
 │   ├── scoring.py          # 3축 결정론적 집계 (LLM 아님)
 │   ├── falsify.py          # 반증 규칙 6개 (+ 플래그→질의문항 변환)
-│   └── match.py            # (부가) 투자자·지원사업 힌트 — 룰 기반
+│   ├── narrative.py        # LLM 근거 서술 (종합 서술 + 질의문항 다듬기). 키 없으면 None
+│   ├── matching.py         # (부가) 투자자·지원사업 힌트 — 룰 기반
+│   └── pipeline.py         # 전체 오케스트레이션 + data/cache/ 파일 캐싱
+├── scripts/
+│   └── backfill_narrative.py  # 캐시된 데모 결과에 narrative 채워넣기 (배포 전 1회)
 ├── data/
 │   └── corp_code.xml       # DART 고유번호 (최초 1회)
 └── main.py

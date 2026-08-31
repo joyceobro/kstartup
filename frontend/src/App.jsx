@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { evaluateCompany, ApiError } from "./api";
 import ProfileHeader from "./components/ProfileHeader";
+import NarrativeSummary from "./components/NarrativeSummary";
 import ScoreCard from "./components/ScoreCard";
 import FlagList from "./components/FlagList";
 import InterviewQuestionList from "./components/InterviewQuestionList";
@@ -80,6 +81,8 @@ export default function App() {
               <ScoreCard key={axisKey} axisKey={axisKey} score={result.scores[axisKey]} />
             ))}
           </section>
+
+          <NarrativeSummary narrative={result.narrative} />
 
           <FlagList flags={result.flags} />
 

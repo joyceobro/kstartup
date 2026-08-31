@@ -13,7 +13,7 @@ from pathlib import Path
 import requests
 
 from collectors import dart, patent, venture
-from core import falsify, matching, normalize, scoring
+from core import falsify, matching, narrative, normalize, scoring
 
 # 수집기가 던지는 예상 가능한 실패만 흡수한다 (네트워크/키미설정/데이터없음).
 # 그 외 예외(코딩 버그 등)는 그대로 전파되어야 조용히 묻히지 않는다.
@@ -61,13 +61,38 @@ def _evaluate_live(company_name: str) -> dict:
 
     flags = falsify.run_all(profile, dart_result=dart_result)
 
-    return {
+    result = {
         "profile": profile,
         "scores": scoring.score_all(profile),
         "flags": flags,
         "interview_questions": falsify.to_interview_questions(flags),
         "vc_matches": matching.match_vcs(profile),
     }
+    _attach_narrative(result)
+    return result
+
+
+def _attach_narrative(result: dict) -> None:
+    """LLM 근거 서술을 덧붙인다 (실패 시 narrative=None, 나머지는 그대로).
+
+    LLM이 다듬은 질의 문항은 결정론 템플릿(interview_questions[].question)을
+    rule 단위로 덮어쓰되, 원본은 fallback으로 그대로 살아 있다.
+    """
+    narr = narrative.generate_narrative(result)
+    if not narr:
+        result["narrative"] = None
+        return
+
+    result["narrative"] = {
+        "summary": narr["summary"],
+        "model": narr["model"],
+        "is_ai_generated": True,
+    }
+    refined = {q["rule"]: q["question"] for q in narr.get("questions", [])}
+    for iq in result["interview_questions"]:
+        if iq["rule"] in refined:
+            iq["question"] = refined[iq["rule"]]
+            iq["ai_refined"] = True
 
 
 def _latest_bsns_year() -> int:

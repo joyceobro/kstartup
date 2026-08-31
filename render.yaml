@@ -17,3 +17,6 @@ services:
         sync: false
       - key: CORS_ORIGINS
         sync: false
+      # LLM 근거 서술 레이어. 미설정이어도 서비스는 정상 동작(서술만 생략).
+      - key: ANTHROPIC_API_KEY
+        sync: false

@@ -6,3 +6,7 @@ venv/
 data/corp_code.xml
 data/*.zip
 *.log
+*.stackdump
+
+# 대회 제공 양식 원본 (참고용, 커밋 안 함)
+(첨부1)*.hwpx
