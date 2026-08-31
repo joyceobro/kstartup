@@ -59,10 +59,13 @@ def _evaluate_live(company_name: str) -> dict:
             default=None,
         )
 
+    flags = falsify.run_all(profile, dart_result=dart_result)
+
     return {
         "profile": profile,
         "scores": scoring.score_all(profile),
-        "flags": falsify.run_all(profile, dart_result=dart_result),
+        "flags": flags,
+        "interview_questions": falsify.to_interview_questions(flags),
         "vc_matches": matching.match_vcs(profile),
     }
 

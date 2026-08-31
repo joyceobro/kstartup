@@ -15,8 +15,10 @@ export default function VcMatchList({ vcMatches }) {
 
   return (
     <section className="vc-section">
-      <h3>VC 매칭 (데모)</h3>
-      <p className="vc-section__note">{note}</p>
+      <h3>참고: 관심 가질 만한 투자자·후속 지원사업 힌트 (부가 데모)</h3>
+      <p className="vc-section__note">
+        MVP 주력 기능이 아닌 부가 데모입니다. {note}
+      </p>
 
       <dl className="vc-tags">
         <TagRow label="추정 단계" values={tags.stage} />

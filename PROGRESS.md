@@ -1,4 +1,4 @@
-# 진행 상황 (2026-08-21 기준)
+# 진행 상황 (2026-08-31 기준)
 
 > CLAUDE.md의 설계 원칙은 그대로 유효. 이 문서는 W1~W2에서 실제로 구현·검증된 내용과
 > 실측 과정에서 CLAUDE.md 원 설계와 달라진 부분을 기록한다. 다음 세션은 이 문서 →
@@ -127,8 +127,34 @@ cron-job.org 등)로 15분 간격 헬스체크를 걸어 슬립을 방지하는 
 - [x] Render `CORS_ORIGINS=https://kstartupcopy.vercel.app` 설정 후 재배포, 정상 동작 확인
 - [x] 배포된 URL로 디플리(Vercel→Render CORS 좁힌 뒤)·삼성전자(Vercel 초기 배포 직후) 확인 완료
 
+## 재정의(2026-08-27) 코드 반영 (2026-08-31)
+
+CLAUDE.md가 08-27에 "성장성 평가 & VC매칭" → **"기관 심사역용 심사 스크리닝 엔진"**으로
+재정의됨. 08-21 시점 코드는 옛 프레이밍 기준이었어서 이번 세션에 아래를 반영:
+
+- `core/falsify.py` — 6규칙 각 플래그에 **`question` 필드**(심층심사 질의 문항) 추가.
+  `to_interview_questions(flags)` 헬퍼 신설 → `[{rule, title, level, question}]` 반환.
+- `core/pipeline.py` — `evaluate()` 응답에 **`interview_questions`** 키 추가 (`flags`와 별개).
+- `main.py` — FastAPI title/독스트링을 "근거 — 심사 스크리닝 엔진" 톤으로.
+- `frontend/`:
+  - `App.jsx` — 헤더 타이틀·소개문을 심사역 보조 톤으로. VcMatchList를 리포트 **맨 아래**로 이동.
+  - `components/FlagList.jsx` — 각 플래그 아래 "심층심사 질문" 콜아웃 렌더, 섹션 제목/문구 변경.
+  - `components/InterviewQuestionList.jsx` (**신규**) — "심층심사 질의서 시드 (자동 생성)" 섹션.
+    질문 목록 + "전체 복사"(navigator.clipboard) 버튼. `interview_questions` 비면 렌더 안 함.
+  - `components/VcMatchList.jsx` — 제목 "참고: … 힌트 (부가 데모)"로 격하, 부가 데모임을 note에 명시.
+  - `App.css` — `.flag-item__question`, `.iq-section` 등 스타일 추가.
+  - `index.html` — `<title>` 변경.
+- `data/cache/*.json` (6건) — 오프라인 재생성. 저장된 profile로 `scoring.score_all` +
+  `falsify.run_all`(dart_result는 `profile.dart.overview.status`로 합성) 재실행 후
+  `interview_questions` 추가, 누락돼 있던 `vc_matches` 백필. 플래그 rule 셋은 재생성 전후 동일.
+  ⚠️ `as_of`가 오늘로 바뀌어 디플리 C2 메시지 "75일 전"→"86일 전"으로 갱신됨 (의도된 변화).
+- 검증: `compileall`, `pipeline.evaluate` 3케이스, `npm run build`, `npx oxlint src` 통과.
+  로컬 백엔드+프론트 띄워 디플리 케이스 브라우저 렌더 확인 (플래그 콜아웃 + 질의서 시드 섹션 정상).
+- ⚠️ 배포 반영 아직 안 함 — Render/Vercel은 git push 시 자동배포. **아직 커밋/푸시 안 함.**
+
 ### 다음 세션 시작점
 
+- [ ] 이번 세션 변경분 커밋 & push → Render/Vercel 자동배포 확인 (배포 URL로 재검증)
 - [ ] (선택) UptimeRobot 등으로 Render 슬립 방지 핑 설정
 - [ ] 기획서·기능명세서 PDF 마무리 (제출용 URL: 프론트 `https://kstartupcopy.vercel.app`,
       백엔드 `https://kstartup-api.onrender.com`)

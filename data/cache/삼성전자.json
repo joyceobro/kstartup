@@ -1914,6 +1914,7 @@
     }
   },
   "flags": [],
+  "interview_questions": [],
   "vc_matches": {
     "is_demo_data": true,
     "note": "룰 기반 데모입니다. VC 목록은 실제 투자 성향 조사가 아닌 가상 시드 데이터입니다.",

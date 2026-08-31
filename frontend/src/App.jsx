@@ -3,6 +3,7 @@ import { evaluateCompany, ApiError } from "./api";
 import ProfileHeader from "./components/ProfileHeader";
 import ScoreCard from "./components/ScoreCard";
 import FlagList from "./components/FlagList";
+import InterviewQuestionList from "./components/InterviewQuestionList";
 import PatentList from "./components/PatentList";
 import VcMatchList from "./components/VcMatchList";
 import "./App.css";
@@ -40,10 +41,11 @@ export default function App() {
   return (
     <div className="page">
       <header className="page__intro">
-        <h1>초기 창업기업 성장성 리포트</h1>
+        <h1>근거 — 초기 벤처기업 심사 스크리닝</h1>
         <p>
-          공개 데이터(벤처확인·특허·DART)만을 근거로 3축 점수를 산출합니다. 점수는 AI가 매기지 않으며,
-          모든 항목에 출처가 표시됩니다.
+          재무제표가 없는 초기 기업을 심사하는 기관 심사역용 도구입니다. 공개 데이터(벤처확인·특허·DART)만을
+          근거로 3축 팩트시트를 만들고, 자기서술과 공개 기록의 모순을 "확인 필요" 플래그로 지목한 뒤
+          각 플래그를 심층심사 질의 문항으로 변환합니다. 점수는 AI가 매기지 않으며 모든 항목에 출처가 표시됩니다.
         </p>
       </header>
 
@@ -81,9 +83,14 @@ export default function App() {
 
           <FlagList flags={result.flags} />
 
-          <VcMatchList vcMatches={result.vc_matches} />
+          <InterviewQuestionList
+            questions={result.interview_questions}
+            companyName={result.profile.input_name}
+          />
 
           <PatentList patent={result.profile.patent} />
+
+          <VcMatchList vcMatches={result.vc_matches} />
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
 """
-초기 창업기업 성장성 평가 API. CLAUDE.md 5절 MVP 스코프:
-기업명 입력 → 3소스 수집 → 3축 근거형 점수 → 반증 플래그.
+"근거" — 초기 벤처기업 심사 스크리닝 엔진 API (기관 심사역용). CLAUDE.md 5절 MVP 스코프:
+기업명(+주소) 입력 → 3소스 수집 → 3축 근거형 팩트시트 → 반증 플래그 → 심층심사 질의 문항.
 
 실행: uvicorn main:app --reload
 """
@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from core.pipeline import evaluate
 
-app = FastAPI(title="벤처기업 성장성 평가 API", version="0.1.0")
+app = FastAPI(title="근거 — 초기 벤처기업 심사 스크리닝 엔진 API", version="0.2.0")
 
 # CORS_ORIGINS="https://foo.vercel.app,https://bar.com" 형태로 배포 환경에서 좁힐 것.
 # 미설정 시 "*" (로컬 개발 기본값).
