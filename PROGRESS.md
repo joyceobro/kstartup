@@ -185,6 +185,18 @@ LLM은 서술·문장화만** (CLAUDE.md 1절 Non-self-grading).
 - 검증: `compileall`, TestClient로 `/api/evaluate`(캐시 응답에 `narrative` 키 정상, 키 없어 null),
   `npm run build`, `oxlint` 통과. **LLM 실제 호출은 키가 없어 미검증** — 코드 경로는 try/except로
   전부 감싸 실패 시 None.
+- 커밋 `27224ae` push 완료. Render(anthropic 설치, `/api/evaluate`에 `narrative` 키 null),
+  Vercel(번들에 "종합 근거 서술"/"AI 생성" 마커) 양쪽 배포 확인.
+
+## 기획서 초안 (2026-08-31, 미완)
+
+- `docs/기획서.md` 작성 완료 (커밋 안 함). hwpx 양식 7개 항목에 1:1 대응. 실제 구현 근거로 작성.
+- **내일 할 일**:
+  - `<<팀명>>` `<<팀장 성명>>` 채우기
+  - 검토: ① 항목 3 "금융 고객 = 기관 심사역(B2B)" 프레이밍이 템플릿 retail 예시와 달라도 괜찮은지
+    ② 항목 5 후반 "비정형 데이터 분석"을 "향후 적용"으로 명시한 톤 — 심사 약점으로 보일지
+  - 확정 후 한글(.hwpx) 양식에 항목 번호·소제목 그대로 옮겨넣기 → PDF
+  - 기능명세서(별도 문서) 착수
 
 ### ⚠️ 배포 전 남은 일 (ANTHROPIC_API_KEY 필요)
 
@@ -195,14 +207,12 @@ LLM은 서술·문장화만** (CLAUDE.md 1절 Non-self-grading).
 5. 배포 URL에서 디플리 케이스에 "종합 근거 서술" 섹션 뜨는지 확인.
    (키 안 넣어도 서비스는 정상 — 서술 섹션만 안 보임.)
 
-### 다음 세션 시작점
+### 다음 세션 시작점 (내일)
 
-- [ ] 위 "배포 전 남은 일" 5단계 (ANTHROPIC_API_KEY)
-- [ ] 대회 기획서 작성 — 양식 `(첨부1) 2026 금융 AI Challenge 공모전 기획서.hwpx` (레포 루트).
-      7개 필수 목차 추출 완료 (PROGRESS 아래 메모/메모리 참고). 산출 형태: `docs/기획서.md`.
+- [ ] `docs/기획서.md` 검토·팀명 채우기·확정 → 한글 양식 이관 → PDF (위 "기획서 초안" 절 참고)
+- [ ] 기능명세서 착수
+- [ ] 위 "배포 전 남은 일" 5단계 (ANTHROPIC_API_KEY) — 기획서와 병행 가능
 - [ ] (선택) UptimeRobot 등으로 Render 슬립 방지 핑 설정
-- [ ] 기획서·기능명세서 PDF 마무리 (제출용 URL: 프론트 `https://kstartupcopy.vercel.app`,
-      백엔드 `https://kstartup-api.onrender.com`)
 - [ ] (여유 있으면) KIPRIS `CommonSearchApplicantInfo` 승인받아 동명이인 보정 강화
 - [ ] (여유 있으면) 공신력 축 — 이노비즈/메인비즈 소스 추가 조사
 - [ ] (여유 있으면) 반응형(모바일) 점검, 로딩 스피너 개선
