@@ -168,10 +168,12 @@ CLAUDE.md가 08-27에 "성장성 평가 & VC매칭" → **"기관 심사역용 �
 없었음 → 단일 LLM 호출 레이어 추가. **핵심 원칙 유지: 점수·등급은 결정론 집계 그대로,
 LLM은 서술·문장화만** (CLAUDE.md 1절 Non-self-grading).
 
-> 2026-09-01: 유료 Claude API → **무료 LLM(기본 Google Gemini `gemini-2.0-flash`,
+> 2026-09-01: 유료 Claude API → **무료 LLM(기본 Google Gemini `gemini-3.6-flash`,
 > OpenAI 호환 엔드포인트)**로 전환. `openai` SDK 하나로 `LLM_BASE_URL`만 바꾸면
 > Groq·OpenRouter·Cerebras 등으로도 교체 가능. 반환 스키마·파이프라인·프론트 계약 불변.
 > 아래 서술은 전환 후 현재 상태 기준. (구현 이력: 커밋 `27224ae`가 Claude 버전, 이후 커밋에서 전환.)
+> ※ `gemini-2.0-flash`/`2.5-flash`는 신규 사용자에게 종료(404) → `gemini-3.6-flash` 사용.
+> 무료 등급 키(AI Studio, `AQ.Ab8…` 형식)로 실호출 검증 완료.
 
 - `core/narrative.py` — `generate_narrative(result)`:
   - 입력: 결정론 결과 JSON에서 원천값만 추림(`_compact_input`).
@@ -181,18 +183,20 @@ LLM은 서술·문장화만** (CLAUDE.md 1절 Non-self-grading).
     `json_object` 미지원 프로바이더 대비 → 강제 모드 실패 시 일반 모드 재시도 → `_extract_json` 폴백.
   - **`LLM_API_KEY`(또는 `GEMINI_API_KEY`) 미설정 / SDK 없음 / API 오류 → None 반환.** 파이프라인·배포 URL 생존 불변.
   - 환경변수: `LLM_API_KEY`(활성화 스위치), `LLM_BASE_URL`(기본 Gemini OpenAI 호환),
-    `LLM_MODEL`(기본 `gemini-2.0-flash`).
+    `LLM_MODEL`(기본 `gemini-3.6-flash`).
 - `core/pipeline.py` — `_attach_narrative()`: `evaluate()` 응답에 `narrative` 키 추가. LLM이 다듬은
   질의문항은 `interview_questions[].question`을 rule 단위로 덮어쓰고 `ai_refined: true` 표시(원본은 fallback). (전환과 무관, 그대로.)
 - `scripts/backfill_narrative.py` — `data/cache/*.json`에 narrative를 구워넣는 1회성 스크립트.
-  `.env` 직접 로드(collector 미경유). 키 없이 실행하면 `narrative: null`로만 정규화(현재 상태). **키 확보 후 재실행 → 커밋 필요**.
+  `.env` 직접 로드(collector 미경유). 키 없으면 `narrative: null`로만 정규화.
+  **2026-09-01 실키로 실행 완료 → 데모 6건 전부 `narrative OK`** (디플리·문와쳐·파인하우스·존재하지않는… 2건씩,
+  몬스터라이엇 1건, 삼성전자 0건 refine).
 - `requirements.txt`: `openai>=1.40,<2` (anthropic 제거. .venv/Render 모두 Python 3.9 — openai 1.x는 3.8+ 지원).
 - `.env.example` / `render.yaml`: `LLM_API_KEY` (sync:false). `ANTHROPIC_API_KEY`는 삭제.
 - 프론트: `NarrativeSummary.jsx`("종합 근거 서술" 섹션 + "AI 생성" 배지, model 폴백 문구 `"생성형 AI"`),
   App.jsx에서 ProfileHeader 아래 배치. InterviewQuestionList에 ✎(AI 다듬음) 마커.
-- 검증(2026-09-01): `py_compile` 3파일, 키 없이 `generate_narrative`→`None` / `backfill_narrative`→전건 `narrative=null` 정규화 확인.
-  **LLM 실제 호출은 Gemini 키가 없어 미검증** — 코드 경로는 try/except로 전부 감싸 실패 시 None.
-- 커밋 `27224ae`(Claude 버전) push 완료 상태. **Gemini 전환 커밋은 아직 안 함 → 커밋 필요.**
+- 검증(2026-09-01): `py_compile`, 키 없는 경로(`None` / `narrative=null`) + **`gemini-3.6-flash` 실호출**
+  (디플리 케이스 summary 323자 + C2/D1 질의문항 2건 생성) 모두 확인.
+- 커밋 `c59a29a`(Claude→Gemini 전환) push 완료. 이후 모델명 `gemini-3.6-flash` 수정 + 캐시 backfill 커밋 진행.
 
 ## 기획서 초안 (2026-08-31, 미완)
 
@@ -204,22 +208,20 @@ LLM은 서술·문장화만** (CLAUDE.md 1절 Non-self-grading).
   - 확정 후 한글(.hwpx) 양식에 항목 번호·소제목 그대로 옮겨넣기 → PDF
   - 기능명세서(별도 문서) 착수
 
-### ⚠️ 배포 전 남은 일 (Gemini `LLM_API_KEY` 필요)
+### 배포 전 남은 일 (LLM 서술)
 
-0. Gemini 전환 코드 커밋·push (`core/narrative.py`, `scripts/backfill_narrative.py`,
-   `requirements.txt`, `.env.example`, `render.yaml`, `main.py`, `CLAUDE.md`, `frontend/.../NarrativeSummary.jsx`).
-1. https://aistudio.google.com/apikey 에서 키 발급(카드 불필요) → 로컬 `.env`에 `LLM_API_KEY=...` 추가.
-2. `./.venv/Scripts/python.exe -m scripts.backfill_narrative` 실행 → 데모 캐시에 narrative 구움.
-3. 결과 확인 후 `git add data/cache/ && git commit && git push`.
-4. Render 대시보드 → Environment → `LLM_API_KEY` 추가 / 기존 `ANTHROPIC_API_KEY` 삭제 (비캐시 기업 라이브 조회용).
-5. 배포 URL에서 디플리 케이스에 "종합 근거 서술" 섹션 뜨는지 확인.
-   (키 안 넣어도 서비스는 정상 — 서술 섹션만 안 보임.)
+- [x] Gemini 전환 코드 커밋·push (`c59a29a`).
+- [x] AI Studio 무료 키 발급 → 로컬 `.env`에 `LLM_API_KEY=...`.
+- [x] `scripts.backfill_narrative` 실행 → 데모 캐시 6건 narrative 구움. (모델명 수정분과 함께 커밋 진행)
+- [ ] **Render 대시보드 → Environment → `LLM_API_KEY` 추가 / 기존 `ANTHROPIC_API_KEY` 삭제** (비캐시 기업 라이브 조회용).
+- [ ] 배포 URL에서 디플리 케이스에 "종합 근거 서술" 섹션 뜨는지 확인.
+      (캐시 서빙이라 Render 키 없어도 데모는 서술 보임. Render 키는 비캐시 기업 라이브 조회 때만 필요.)
 
 ### 다음 세션 시작점 (내일)
 
 - [ ] `docs/기획서.md` 검토·팀명 채우기·확정 → 한글 양식 이관 → PDF (위 "기획서 초안" 절 참고)
 - [ ] 기능명세서 착수
-- [ ] 위 "배포 전 남은 일" (Gemini `LLM_API_KEY` + 전환 코드 커밋) — 기획서와 병행 가능
+- [ ] Render Environment에 `LLM_API_KEY` 추가 (`ANTHROPIC_API_KEY` 삭제) — 위 "배포 전 남은 일" 참고
 - [ ] (선택) UptimeRobot 등으로 Render 슬립 방지 핑 설정
 - [ ] (여유 있으면) KIPRIS `CommonSearchApplicantInfo` 승인받아 동명이인 보정 강화
 - [ ] (여유 있으면) 공신력 축 — 이노비즈/메인비즈 소스 추가 조사

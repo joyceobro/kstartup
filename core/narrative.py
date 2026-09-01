@@ -14,7 +14,7 @@ base_url만 바꾸면 Groq·OpenRouter·Cerebras 등 다른 무료 프로바이�
 
   LLM_API_KEY   활성화 스위치 (미설정 시 서술 레이어 off → None)
   LLM_BASE_URL  기본 https://generativelanguage.googleapis.com/v1beta/openai/
-  LLM_MODEL     기본 gemini-2.0-flash
+  LLM_MODEL     기본 gemini-3.6-flash
 
 키 미설정 또는 API 오류 시 None을 반환한다 — 배포 URL 생존이 최우선이므로(CLAUDE.md 8절)
 서술 레이어 실패가 결정론 파이프라인을 막지 않는다.
@@ -30,7 +30,7 @@ except ImportError:  # pragma: no cover
     OpenAI = None
 
 _DEFAULT_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
-_DEFAULT_MODEL = "gemini-2.0-flash"
+_DEFAULT_MODEL = "gemini-3.6-flash"
 
 
 def _api_key() -> str | None:
