@@ -208,20 +208,23 @@ LLM은 서술·문장화만** (CLAUDE.md 1절 Non-self-grading).
   - 확정 후 한글(.hwpx) 양식에 항목 번호·소제목 그대로 옮겨넣기 → PDF
   - 기능명세서(별도 문서) 착수
 
-### 배포 전 남은 일 (LLM 서술)
+### 배포 전 남은 일 (LLM 서술) — 2026-09-01 전부 완료 ✅
 
-- [x] Gemini 전환 코드 커밋·push (`c59a29a`).
+- [x] Gemini 전환 코드 커밋·push (`c59a29a`, 모델명 수정 `5d3b088`).
 - [x] AI Studio 무료 키 발급 → 로컬 `.env`에 `LLM_API_KEY=...`.
-- [x] `scripts.backfill_narrative` 실행 → 데모 캐시 6건 narrative 구움. (모델명 수정분과 함께 커밋 진행)
-- [ ] **Render 대시보드 → Environment → `LLM_API_KEY` 추가 / 기존 `ANTHROPIC_API_KEY` 삭제** (비캐시 기업 라이브 조회용).
-- [ ] 배포 URL에서 디플리 케이스에 "종합 근거 서술" 섹션 뜨는지 확인.
-      (캐시 서빙이라 Render 키 없어도 데모는 서술 보임. Render 키는 비캐시 기업 라이브 조회 때만 필요.)
+- [x] `scripts.backfill_narrative` 실행 → 데모 캐시 6건 narrative 구움 (커밋 `5d3b088`).
+- [x] Render 대시보드 → Environment → `LLM_API_KEY` 추가 / `ANTHROPIC_API_KEY` 삭제.
+- [x] 배포 확인 (2026-09-01):
+  - `/health` → `200 {"status":"ok"}` (~0.5s), openapi `0.2.0`.
+  - `GET /api/evaluate?company=디플리&refresh=true` (캐시 우회 = Render 라이브 파이프라인 + Gemini 실호출)
+    → `narrative` 정상, `model: gemini-3.6-flash`, 플래그 C2·D1, 질의문항 2건 AI refine 확인.
+  - ⚠️ 엔드포인트는 **`GET /api/evaluate?company=<기업명>&refresh=<bool>`** (POST 아님).
 
 ### 다음 세션 시작점 (내일)
 
 - [ ] `docs/기획서.md` 검토·팀명 채우기·확정 → 한글 양식 이관 → PDF (위 "기획서 초안" 절 참고)
 - [ ] 기능명세서 착수
-- [ ] Render Environment에 `LLM_API_KEY` 추가 (`ANTHROPIC_API_KEY` 삭제) — 위 "배포 전 남은 일" 참고
+- [x] Render Environment `LLM_API_KEY` 추가 + 배포 확인 완료 (위 "배포 전 남은 일" 참고)
 - [ ] (선택) UptimeRobot 등으로 Render 슬립 방지 핑 설정
 - [ ] (여유 있으면) KIPRIS `CommonSearchApplicantInfo` 승인받아 동명이인 보정 강화
 - [ ] (여유 있으면) 공신력 축 — 이노비즈/메인비즈 소스 추가 조사
