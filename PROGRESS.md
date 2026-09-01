@@ -162,31 +162,37 @@ CLAUDE.md가 08-27에 "성장성 평가 & VC매칭" → **"기관 심사역용 �
   title "근거 …", `심층심사 질의서 시드` 문구 포함, `kstartup-api.onrender.com` 하드코딩됨).
   - Vercel 팀/프로젝트 slug: `inwhites-projects` / `kstartup` (도메인은 여전히 `kstartupcopy.vercel.app`).
 
-## LLM 근거 서술 레이어 (2026-08-31)
+## LLM 근거 서술 레이어 (2026-08-31 신설 → 2026-09-01 Gemini 전환)
 
 대회 필수항목(기획서 5번 "생성형 AI 모델 적용 방안") 대응. 기존 코드엔 LLM 호출이 전혀
-없었음 → 단일 Claude 호출 레이어 추가. **핵심 원칙 유지: 점수·등급은 결정론 집계 그대로,
+없었음 → 단일 LLM 호출 레이어 추가. **핵심 원칙 유지: 점수·등급은 결정론 집계 그대로,
 LLM은 서술·문장화만** (CLAUDE.md 1절 Non-self-grading).
 
-- `core/narrative.py` (신규) — `generate_narrative(result)`:
+> 2026-09-01: 유료 Claude API → **무료 LLM(기본 Google Gemini `gemini-2.0-flash`,
+> OpenAI 호환 엔드포인트)**로 전환. `openai` SDK 하나로 `LLM_BASE_URL`만 바꾸면
+> Groq·OpenRouter·Cerebras 등으로도 교체 가능. 반환 스키마·파이프라인·프론트 계약 불변.
+> 아래 서술은 전환 후 현재 상태 기준. (구현 이력: 커밋 `27224ae`가 Claude 버전, 이후 커밋에서 전환.)
+
+- `core/narrative.py` — `generate_narrative(result)`:
   - 입력: 결정론 결과 JSON에서 원천값만 추림(`_compact_input`).
   - 출력: `{summary(종합 서술 3~5문장), questions[{rule, question}](플래그별 질의문항 다듬기), model, is_ai_generated}`.
-  - `anthropic` SDK, `client.messages.create(model=claude-opus-5, thinking=adaptive, output_config={effort:low, format:json_schema})`.
-  - **ANTHROPIC_API_KEY 미설정 / SDK 없음 / API 오류 → None 반환.** 파이프라인·배포 URL 생존 불변.
-  - 모델은 `ANTHROPIC_MODEL` 환경변수로 교체 가능(기본 `claude-opus-5`).
+  - `openai` SDK, `client.chat.completions.create(model=<LLM_MODEL>, temperature=0.2, max_tokens=4000,
+    response_format={"type":"json_object"})`. JSON 스키마는 `_SCHEMA_HINT`로 프롬프트에 명시.
+    `json_object` 미지원 프로바이더 대비 → 강제 모드 실패 시 일반 모드 재시도 → `_extract_json` 폴백.
+  - **`LLM_API_KEY`(또는 `GEMINI_API_KEY`) 미설정 / SDK 없음 / API 오류 → None 반환.** 파이프라인·배포 URL 생존 불변.
+  - 환경변수: `LLM_API_KEY`(활성화 스위치), `LLM_BASE_URL`(기본 Gemini OpenAI 호환),
+    `LLM_MODEL`(기본 `gemini-2.0-flash`).
 - `core/pipeline.py` — `_attach_narrative()`: `evaluate()` 응답에 `narrative` 키 추가. LLM이 다듬은
-  질의문항은 `interview_questions[].question`을 rule 단위로 덮어쓰고 `ai_refined: true` 표시(원본은 fallback).
-- `scripts/backfill_narrative.py` (신규) — `data/cache/*.json`에 narrative를 구워넣는 1회성 스크립트.
-  키 없이 실행하면 `narrative: null`로만 정규화(현재 상태). **키 확보 후 재실행 → 커밋 필요**.
-- `requirements.txt`: `anthropic>=0.125,<1` (0.x = .venv Python 3.9 호환. Render도 3.9.12).
-- `.env.example` / `render.yaml`: `ANTHROPIC_API_KEY` (sync:false) 추가.
-- 프론트: `NarrativeSummary.jsx`(신규, "종합 근거 서술" 섹션 + "AI 생성" 배지),
+  질의문항은 `interview_questions[].question`을 rule 단위로 덮어쓰고 `ai_refined: true` 표시(원본은 fallback). (전환과 무관, 그대로.)
+- `scripts/backfill_narrative.py` — `data/cache/*.json`에 narrative를 구워넣는 1회성 스크립트.
+  `.env` 직접 로드(collector 미경유). 키 없이 실행하면 `narrative: null`로만 정규화(현재 상태). **키 확보 후 재실행 → 커밋 필요**.
+- `requirements.txt`: `openai>=1.40,<2` (anthropic 제거. .venv/Render 모두 Python 3.9 — openai 1.x는 3.8+ 지원).
+- `.env.example` / `render.yaml`: `LLM_API_KEY` (sync:false). `ANTHROPIC_API_KEY`는 삭제.
+- 프론트: `NarrativeSummary.jsx`("종합 근거 서술" 섹션 + "AI 생성" 배지, model 폴백 문구 `"생성형 AI"`),
   App.jsx에서 ProfileHeader 아래 배치. InterviewQuestionList에 ✎(AI 다듬음) 마커.
-- 검증: `compileall`, TestClient로 `/api/evaluate`(캐시 응답에 `narrative` 키 정상, 키 없어 null),
-  `npm run build`, `oxlint` 통과. **LLM 실제 호출은 키가 없어 미검증** — 코드 경로는 try/except로
-  전부 감싸 실패 시 None.
-- 커밋 `27224ae` push 완료. Render(anthropic 설치, `/api/evaluate`에 `narrative` 키 null),
-  Vercel(번들에 "종합 근거 서술"/"AI 생성" 마커) 양쪽 배포 확인.
+- 검증(2026-09-01): `py_compile` 3파일, 키 없이 `generate_narrative`→`None` / `backfill_narrative`→전건 `narrative=null` 정규화 확인.
+  **LLM 실제 호출은 Gemini 키가 없어 미검증** — 코드 경로는 try/except로 전부 감싸 실패 시 None.
+- 커밋 `27224ae`(Claude 버전) push 완료 상태. **Gemini 전환 커밋은 아직 안 함 → 커밋 필요.**
 
 ## 기획서 초안 (2026-08-31, 미완)
 
@@ -198,12 +204,14 @@ LLM은 서술·문장화만** (CLAUDE.md 1절 Non-self-grading).
   - 확정 후 한글(.hwpx) 양식에 항목 번호·소제목 그대로 옮겨넣기 → PDF
   - 기능명세서(별도 문서) 착수
 
-### ⚠️ 배포 전 남은 일 (ANTHROPIC_API_KEY 필요)
+### ⚠️ 배포 전 남은 일 (Gemini `LLM_API_KEY` 필요)
 
-1. Anthropic API 키 발급 → 로컬 `.env`에 `ANTHROPIC_API_KEY=...` 추가.
+0. Gemini 전환 코드 커밋·push (`core/narrative.py`, `scripts/backfill_narrative.py`,
+   `requirements.txt`, `.env.example`, `render.yaml`, `main.py`, `CLAUDE.md`, `frontend/.../NarrativeSummary.jsx`).
+1. https://aistudio.google.com/apikey 에서 키 발급(카드 불필요) → 로컬 `.env`에 `LLM_API_KEY=...` 추가.
 2. `./.venv/Scripts/python.exe -m scripts.backfill_narrative` 실행 → 데모 캐시에 narrative 구움.
 3. 결과 확인 후 `git add data/cache/ && git commit && git push`.
-4. Render 대시보드 → Environment → `ANTHROPIC_API_KEY` 추가 (비캐시 기업 라이브 조회용).
+4. Render 대시보드 → Environment → `LLM_API_KEY` 추가 / 기존 `ANTHROPIC_API_KEY` 삭제 (비캐시 기업 라이브 조회용).
 5. 배포 URL에서 디플리 케이스에 "종합 근거 서술" 섹션 뜨는지 확인.
    (키 안 넣어도 서비스는 정상 — 서술 섹션만 안 보임.)
 
@@ -211,7 +219,7 @@ LLM은 서술·문장화만** (CLAUDE.md 1절 Non-self-grading).
 
 - [ ] `docs/기획서.md` 검토·팀명 채우기·확정 → 한글 양식 이관 → PDF (위 "기획서 초안" 절 참고)
 - [ ] 기능명세서 착수
-- [ ] 위 "배포 전 남은 일" 5단계 (ANTHROPIC_API_KEY) — 기획서와 병행 가능
+- [ ] 위 "배포 전 남은 일" (Gemini `LLM_API_KEY` + 전환 코드 커밋) — 기획서와 병행 가능
 - [ ] (선택) UptimeRobot 등으로 Render 슬립 방지 핑 설정
 - [ ] (여유 있으면) KIPRIS `CommonSearchApplicantInfo` 승인받아 동명이인 보정 강화
 - [ ] (여유 있으면) 공신력 축 — 이노비즈/메인비즈 소스 추가 조사

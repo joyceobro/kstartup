@@ -1,7 +1,7 @@
 """
 LLM 근거 서술 레이어 — CLAUDE.md 1절 "LLM은 딱 필요한 곳에만".
 
-생성형 AI(Claude)의 역할은 딱 두 가지다:
+생성형 AI의 역할은 딱 두 가지다:
   1. 결정론적 3축 팩트시트 + 6규칙 플래그를 심사역용 자연어 "종합 근거 서술"로 옮긴다.
   2. 각 반증 플래그를 해당 기업 맥락을 반영한 "심층심사 질의 문항"으로 다듬는다.
 
@@ -9,8 +9,15 @@ LLM 근거 서술 레이어 — CLAUDE.md 1절 "LLM은 딱 필요한 곳에만".
   - 점수·등급·투자적격 판정. tier/score를 바꾸거나 재해석하지 않는다.
   - JSON에 없는 사실 생성. 데이터 부재를 결점으로 서술.
 
-ANTHROPIC_API_KEY 미설정 또는 API 오류 시 None을 반환한다 — 배포 URL 생존이
-최우선이므로(CLAUDE.md 8절) 서술 레이어 실패가 결정론 파이프라인을 막지 않는다.
+무료 LLM(기본: Google Gemini의 OpenAI 호환 엔드포인트)을 쓴다. openai SDK 하나로
+base_url만 바꾸면 Groq·OpenRouter·Cerebras 등 다른 무료 프로바이더로도 교체 가능하다.
+
+  LLM_API_KEY   활성화 스위치 (미설정 시 서술 레이어 off → None)
+  LLM_BASE_URL  기본 https://generativelanguage.googleapis.com/v1beta/openai/
+  LLM_MODEL     기본 gemini-2.0-flash
+
+키 미설정 또는 API 오류 시 None을 반환한다 — 배포 URL 생존이 최우선이므로(CLAUDE.md 8절)
+서술 레이어 실패가 결정론 파이프라인을 막지 않는다.
 """
 from __future__ import annotations
 
@@ -18,11 +25,21 @@ import json
 import os
 
 try:  # SDK가 없더라도 결정론 파이프라인은 그대로 동작해야 한다
-    import anthropic
+    from openai import OpenAI
 except ImportError:  # pragma: no cover
-    anthropic = None
+    OpenAI = None
 
-_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-opus-5")
+_DEFAULT_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
+_DEFAULT_MODEL = "gemini-2.0-flash"
+
+
+def _api_key() -> str | None:
+    return os.environ.get("LLM_API_KEY") or os.environ.get("GEMINI_API_KEY")
+
+
+def _model() -> str:
+    return os.environ.get("LLM_MODEL", _DEFAULT_MODEL)
+
 
 _SYSTEM = """당신은 정책금융·기술보증기금/신용보증기금·은행 여신 심사역을 보조하는 분석 도우미다.
 입력으로 '결정론적으로 집계된' 초기 벤처기업 팩트시트(3축 tier + 6규칙 확인필요 플래그)를 JSON으로 받는다.
@@ -40,26 +57,14 @@ _SYSTEM = """당신은 정책금융·기술보증기금/신용보증기금·은�
 - 재무·특허 데이터 부재를 결점으로 서술하지 않는다. 초기 기업에는 정상이다.
 - 확인이 필요한 사항은 단정하지 말고 "확인 필요"로 명시한다."""
 
-_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "summary": {"type": "string"},
-        "questions": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "rule": {"type": "string"},
-                    "question": {"type": "string"},
-                },
-                "required": ["rule", "question"],
-                "additionalProperties": False,
-            },
-        },
-    },
-    "required": ["summary", "questions"],
-    "additionalProperties": False,
+_SCHEMA_HINT = """반드시 아래 형태의 JSON 객체 '하나만' 출력한다. 코드블록·해설·서두 금지.
+{
+  "summary": "심사의견서용 건조한 실무체 국문 3~5문장",
+  "questions": [
+    {"rule": "<입력 flags[].rule 문자열 그대로>", "question": "심층심사 질의 문항 한 문장"}
+  ]
 }
+입력 flags가 비어 있으면 "questions"는 빈 배열([])."""
 
 
 def _compact_input(result: dict) -> dict:
@@ -106,26 +111,48 @@ def _extract_json(text: str):
     return None
 
 
+def _create(client, model, messages, *, json_mode):
+    kwargs = dict(model=model, max_tokens=4000, temperature=0.2, messages=messages)
+    if json_mode:
+        kwargs["response_format"] = {"type": "json_object"}
+    return client.chat.completions.create(**kwargs)
+
+
 def generate_narrative(result: dict) -> dict | None:
-    if anthropic is None or not os.environ.get("ANTHROPIC_API_KEY"):
+    key = _api_key()
+    if OpenAI is None or not key:
         return None
 
+    model = _model()
     payload = json.dumps(_compact_input(result), ensure_ascii=False, indent=2)
+    messages = [
+        {"role": "system", "content": _SYSTEM + "\n\n" + _SCHEMA_HINT},
+        {"role": "user", "content": payload},
+    ]
 
     try:
-        client = anthropic.Anthropic()
-        response = client.messages.create(
-            model=_MODEL,
-            max_tokens=6000,
-            thinking={"type": "adaptive"},
-            output_config={"effort": "low", "format": {"type": "json_schema", "schema": _SCHEMA}},
-            system=_SYSTEM,
-            messages=[{"role": "user", "content": payload}],
+        client = OpenAI(
+            api_key=key,
+            base_url=os.environ.get("LLM_BASE_URL", _DEFAULT_BASE_URL),
         )
-    except Exception:  # 네트워크·인증·레이트리밋·파라미터 비호환 등 무엇이든 서술만 건너뛴다
+    except Exception:  # SDK 초기화 실패 — 서술만 건너뛴다
         return None
 
-    text = "".join(b.text for b in response.content if getattr(b, "type", None) == "text").strip()
+    # json_object 미지원 프로바이더/모델도 있으므로 강제 모드 → 일반 모드 순으로 시도.
+    response = None
+    for json_mode in (True, False):
+        try:
+            response = _create(client, model, messages, json_mode=json_mode)
+            break
+        except Exception:  # 네트워크·인증·레이트리밋·파라미터 비호환 등 무엇이든
+            continue
+    if response is None:
+        return None
+
+    try:
+        text = (response.choices[0].message.content or "").strip()
+    except (AttributeError, IndexError):
+        return None
     data = _extract_json(text)
     if not isinstance(data, dict) or not data.get("summary"):
         return None
@@ -139,6 +166,6 @@ def generate_narrative(result: dict) -> dict | None:
     return {
         "summary": str(data["summary"]).strip(),
         "questions": questions,
-        "model": _MODEL,
+        "model": model,
         "is_ai_generated": True,
     }

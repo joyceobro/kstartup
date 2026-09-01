@@ -38,8 +38,10 @@
 **LLM은 딱 필요한 곳에만.**
 - 이 파이프라인은 본질적으로 결정론적이다. LangGraph 등 에이전트 아키텍처는 **쓰지 않는다** (오버엔지니어링, 3주 리스크).
 - LLM의 유일한 역할: 최종 리포트의 자연어 근거 서술 + 반증 플래그를 심층심사 질의 문항으로 다듬기
-  (`core/narrative.py`, Claude 단일 호출). 점수·등급은 절대 판정하지 않는다. 키(ANTHROPIC_API_KEY)가
-  없거나 호출이 실패하면 서술만 생략되고 결정론 파이프라인은 그대로 동작한다. (뉴스 감성분석은 소스에서 제외.)
+  (`core/narrative.py`, LLM 단일 호출 — 기본 Google Gemini의 OpenAI 호환 엔드포인트, 무료 티어.
+  `LLM_BASE_URL`/`LLM_MODEL`로 Groq·OpenRouter 등 교체 가능). 점수·등급은 절대 판정하지 않는다.
+  키(`LLM_API_KEY`)가 없거나 호출이 실패하면 서술만 생략되고 결정론 파이프라인은 그대로 동작한다.
+  (뉴스 감성분석은 소스에서 제외.)
 
 **데이터 부재를 처벌하지 않는다.**
 - 초기 기업은 재무·특허가 없는 게 정상이다. "없음 = 저평가"로 처리하지 않는다.
@@ -132,7 +134,7 @@ red flag는 **감점이 아니라 "확인 필요" 플래그**다. 최종 판단�
 
 ```
 venture-eval/
-├── .env                    # KIPRIS_KEY, DATA_GO_KR_KEY, DART_KEY, ANTHROPIC_API_KEY (git 제외)
+├── .env                    # KIPRIS_KEY, DATA_GO_KR_KEY, DART_KEY, LLM_API_KEY (git 제외)
 ├── collectors/
 │   ├── venture.py          # 벤처기업명단
 │   ├── patent.py           # KIPRIS 2단계 (공통→항목별검색)
