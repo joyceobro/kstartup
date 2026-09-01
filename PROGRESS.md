@@ -225,7 +225,9 @@ LLM은 서술·문장화만** (CLAUDE.md 1절 Non-self-grading).
 - [ ] `docs/기획서.md` 검토·팀명 채우기·확정 → 한글 양식 이관 → PDF (위 "기획서 초안" 절 참고)
 - [ ] 기능명세서 착수
 - [x] Render Environment `LLM_API_KEY` 추가 + 배포 확인 완료 (위 "배포 전 남은 일" 참고)
-- [ ] (선택) UptimeRobot 등으로 Render 슬립 방지 핑 설정
+- [x] Render 슬립 방지 핑 설정 완료 (2026-09-01) — **cron-job.org + UptimeRobot 2개 병행, 각 5분 간격**,
+      대상 `https://kstartup-api.onrender.com/health`. 설정 직후 `/health` 3연속 200 / ~0.3s(웜 상태) 확인.
+      GitHub Actions는 스케줄 지연·누락으로 부적합해 제외. 대회 종료 후 두 모니터 정리할 것.
 - [ ] (여유 있으면) KIPRIS `CommonSearchApplicantInfo` 승인받아 동명이인 보정 강화
 - [ ] (여유 있으면) 공신력 축 — 이노비즈/메인비즈 소스 추가 조사
 - [ ] (여유 있으면) 반응형(모바일) 점검, 로딩 스피너 개선
